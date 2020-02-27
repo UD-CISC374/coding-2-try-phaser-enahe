@@ -1,8 +1,8 @@
 {
-  "name": "educational-phaser-game-template",
+  "name": "coding-2-try-phaser-enahe",
   "version": "0.0.1",
   "description": "Phaser 3 starter template for educational games, using TypeScript, webpack, and Github Pages.",
-  "homepage": "https://github.com/acbart/educational-phaser-game-template#readme",
+  "homepage": "https://github.com/UD-CISC374/coding-2-try-phaser-enahe/blob/master/README.md",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --config config/webpack.dev.js",
@@ -26,12 +26,12 @@
     "starter"
   ],
   "author": {
-    "name": "Austin Cory Bart",
-    "url": "https://github.com/acbart"
+    "name": "Eric Nahe",
+    "url": "https://github.com/enahe"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/acbart/educational-phaser-game-template.git"
+    "url": "https://github.com/UD-CISC374/coding-2-try-phaser-enahe"
   },
   "template": {
     "name": "educational-phaser-game-template",
