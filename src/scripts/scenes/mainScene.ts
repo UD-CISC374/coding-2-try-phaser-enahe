@@ -32,6 +32,7 @@ export default class MainScene extends Phaser.Scene {
     this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     this.projectiles = this.add.group();
     this.powerUps = this.physics.add.group();
+
    
 
     let maxObjects : number = 4;
@@ -56,8 +57,6 @@ export default class MainScene extends Phaser.Scene {
       }
       
     }
-
-    this.player.play("player_anim");
     this.turret.play("turret_anim");
     this.drone.play("drone_anim");
 
@@ -71,14 +70,14 @@ export default class MainScene extends Phaser.Scene {
   }
 
   moveShip(ship,speed) {
-    ship.y += speed; 
-    if (ship.y > 400) {
+    ship.y -= speed; 
+    if (ship.y < 0) {
       this.resetShipPos(ship);
     }
   }
 
   resetShipPos(ship) {
-    ship.y = 0;
+    ship.y = 400;
     var randomX = Phaser.Math.Between(0, 400);
     ship.x = randomX; 
   }
@@ -94,6 +93,10 @@ export default class MainScene extends Phaser.Scene {
     this.background.tilePositionY -= 0.5;
 
     this.movePlayerManager();
+    for (let i = 0; i < this.projectiles.getChildren().length; i++) {
+      let shot = this.projectiles.getChildren()[i];
+      shot.update();
+    }
   }
 
   shootBeam() {
@@ -105,20 +108,25 @@ export default class MainScene extends Phaser.Scene {
 
     if(this.cursorKeys.left?.isDown) {
         this.player.setVelocityX(-200);
+          this.player.setFlipX(true);
+          this.player.anims.play("player_run", true);
+        
     }
     else if (this.cursorKeys.right?.isDown) {
-      this.player.setVelocityX(200);
+        this.player.setVelocityX(200);
+        this.player.setFlipX(false);
+        this.player.anims.play("player_run", true);
     }
-
-    if(this.cursorKeys.up?.isDown) {
-      this.player.setVelocityY(-200);
+    else {
+      this.player.setVelocityX(0);
+      this.player.setFlipX(false);
+      this.player.anims.play("player_anim", true);
     }
-    else if (this.cursorKeys.down?.isDown) {
-      this.player.setVelocityY(200);
-    }
+    
 
     if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
-      this.shootBeam();
+        this.player.anims.play("player_jump", true)
+        this.shootBeam();
     }
     
   }
