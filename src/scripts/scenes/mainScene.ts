@@ -29,6 +29,7 @@ export default class MainScene extends Phaser.Scene {
     this.background.setOrigin(0,0);
 
     this.player = this.physics.add.sprite(400/2 - 8, 400 - 64, "player");
+    
     this.turret = this.add.sprite(400/2, 400/2, "turret");
     this.drone = this.add.sprite(400/2 + 50, 400/2, "drone");
     this.cursorKeys = this.input.keyboard.createCursorKeys();
@@ -84,7 +85,7 @@ export default class MainScene extends Phaser.Scene {
     this.physics.add.overlap(this.player, this.enemies, this.hurtPlayer);
 
     this.physics.add.overlap(this.projectiles, this.enemies, this.hitEnemy);
-
+    this.player.setGravityY(100);
   }
 
   resetShipPos(ship) {
