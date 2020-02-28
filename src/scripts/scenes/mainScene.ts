@@ -22,6 +22,7 @@ export default class MainScene extends Phaser.Scene {
     this.turret = this.add.sprite(400/2, 400/2, "turret");
     this.drone = this.add.sprite(400/2 + 50, 400/2, "drone");
     this.cursorKeys = this.input.keyboard.createCursorKeys();
+    this.player.setCollideWorldBounds(true);
     this.powerUps = this.physics.add.group();
 
     let maxObjects : number = 4;
@@ -93,6 +94,13 @@ export default class MainScene extends Phaser.Scene {
     }
     else if (this.cursorKeys.right?.isDown) {
       this.player.setVelocityX(200);
+    }
+
+    if(this.cursorKeys.up?.isDown) {
+      this.player.setVelocityY(-200);
+    }
+    else if (this.cursorKeys.down?.isDown) {
+      this.player.setVelocityY(200);
     }
     
   }
