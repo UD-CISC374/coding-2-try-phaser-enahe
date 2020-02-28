@@ -52,6 +52,12 @@ export default class MainScene extends Phaser.Scene {
     this.turret.play("turret_anim");
     this.drone.play("drone_anim");
 
+    this.player.setInteractive();
+    this.turret.setInteractive();
+    this.drone.setInteractive();
+
+    this.input.on("gameobjectdown", this.destroyShip, this);
+
     
   }
 
@@ -66,6 +72,11 @@ export default class MainScene extends Phaser.Scene {
     ship.y = 0;
     var randomX = Phaser.Math.Between(0, 400);
     ship.x = randomX; 
+  }
+
+  destroyShip(pointer, gameObject) {
+    gameObject.setTexture("explosion");
+    gameObject.play("explode");
   }
 
   update() {
