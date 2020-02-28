@@ -8,6 +8,7 @@ export default class MainScene extends Phaser.Scene {
   drone: Phaser.GameObjects.Sprite;
   powerUps: Phaser.Physics.Arcade.Group;
   cursorKeys: Phaser.Types.Input.Keyboard.CursorKeys;
+  spacebar: Phaser.Input.Keyboard.Key;
 
 
   constructor() {
@@ -23,6 +24,8 @@ export default class MainScene extends Phaser.Scene {
     this.drone = this.add.sprite(400/2 + 50, 400/2, "drone");
     this.cursorKeys = this.input.keyboard.createCursorKeys();
     this.player.setCollideWorldBounds(true);
+
+    this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     this.powerUps = this.physics.add.group();
 
     let maxObjects : number = 4;
@@ -101,6 +104,10 @@ export default class MainScene extends Phaser.Scene {
     }
     else if (this.cursorKeys.down?.isDown) {
       this.player.setVelocityY(200);
+    }
+
+    if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
+      console.log("Fire!");
     }
     
   }
