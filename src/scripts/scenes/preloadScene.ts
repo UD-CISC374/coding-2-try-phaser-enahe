@@ -29,6 +29,10 @@ export default class PreloadScene extends Phaser.Scene {
       frameWidth: 57,
       frameHeight: 57
     });
+    this.load.spritesheet("shot", "src/assets/shot.png", {
+      frameWidth: 13,
+      frameHeight: 13
+    });
   }
 
   create() {
@@ -72,6 +76,13 @@ export default class PreloadScene extends Phaser.Scene {
     this.anims.create({
       key: "machinegun",
       frames: this.anims.generateFrameNumbers("machinegun", { start: 0, end: 2}),
+      frameRate: 20,
+      repeat: -1
+    });
+
+    this.anims.create({
+      key: "shot_anim",
+      frames: this.anims.generateFrameNumbers("shot", { start: 0, end: 2}),
       frameRate: 20,
       repeat: -1
     });

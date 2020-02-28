@@ -1,4 +1,6 @@
 import ExampleObject from '../objects/exampleObject';
+import { Shot } from './shot';
+
 
 export default class MainScene extends Phaser.Scene {
   private exampleObject: ExampleObject;
@@ -9,6 +11,8 @@ export default class MainScene extends Phaser.Scene {
   powerUps: Phaser.Physics.Arcade.Group;
   cursorKeys: Phaser.Types.Input.Keyboard.CursorKeys;
   spacebar: Phaser.Input.Keyboard.Key;
+  projectiles: Phaser.GameObjects.Group;
+
 
 
   constructor() {
@@ -26,7 +30,9 @@ export default class MainScene extends Phaser.Scene {
     this.player.setCollideWorldBounds(true);
 
     this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+    this.projectiles = this.add.group();
     this.powerUps = this.physics.add.group();
+   
 
     let maxObjects : number = 4;
     for (let i : number = 0; i <= maxObjects; i++){
@@ -90,6 +96,11 @@ export default class MainScene extends Phaser.Scene {
     this.movePlayerManager();
   }
 
+  shootBeam() {
+    var shot = new Shot(this);
+    console.log("Shooting");
+  }
+
   movePlayerManager(){
 
     if(this.cursorKeys.left?.isDown) {
@@ -107,7 +118,7 @@ export default class MainScene extends Phaser.Scene {
     }
 
     if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
-      console.log("Fire!");
+      this.shootBeam();
     }
     
   }
