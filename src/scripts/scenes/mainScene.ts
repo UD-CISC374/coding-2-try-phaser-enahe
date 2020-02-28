@@ -13,6 +13,7 @@ export default class MainScene extends Phaser.Scene {
   spacebar: Phaser.Input.Keyboard.Key;
   projectiles: Phaser.GameObjects.Group;
   powerUp: Phaser.Physics.Arcade.Sprite;
+  enemies: Phaser.Physics.Arcade.Group;
   
 
 
@@ -76,22 +77,32 @@ export default class MainScene extends Phaser.Scene {
 
     this.physics.add.overlap(this.player, this.powerUps, this.pickPowerUp);
 
-    
-    
-  }
+    this.enemies = this.physics.add.group();
+    this.enemies.add(this.drone);
+    this.enemies.add(this.turret);
 
-  moveShip(ship,speed) {
-    ship.y -= speed; 
-    if (ship.y < 0) {
-      this.resetShipPos(ship);
-    }
+    this.physics.add.overlap(this.player, this.enemies, this.hurtPlayer);
+
+    this.physics.add.overlap(this.projectiles, this.enemies, this.hitEnemy);
+
   }
 
   resetShipPos(ship) {
     ship.y = 400;
     var randomX = Phaser.Math.Between(0, 400);
-    ship.x = randomX; 
+    ship.x = randomX;
   }
+
+
+  moveShip(ship, speed) {
+    ship.y -= speed;
+    console.log(ship.y);
+    if (ship.y < 0) {
+      this.resetShipPos(ship);
+    }
+  }
+
+ 
 
   destroyShip(pointer, gameObject) {
     gameObject.setTexture("explosion");
@@ -143,5 +154,16 @@ export default class MainScene extends Phaser.Scene {
   }
   pickPowerUp(player, powerUp) {
     powerUp.disableBody(true, true) ;
+  }
+
+  hurtPlayer(player, enemy) {
+    enemy.destroy;
+    player.x = 400/2 - 8;
+    player.y = 400 - 64;
+  }
+
+  hitEnemy(projectile, enemy) {
+    projectile.destroy();
+    enemy.destroy();
   }
 }
