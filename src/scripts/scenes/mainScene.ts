@@ -12,6 +12,10 @@ export default class MainScene extends Phaser.Scene {
   cursorKeys: Phaser.Types.Input.Keyboard.CursorKeys;
   spacebar: Phaser.Input.Keyboard.Key;
   projectiles: Phaser.GameObjects.Group;
+  powerUp: Phaser.Physics.Arcade.Sprite;
+  
+
+
 
 
 
@@ -66,6 +70,13 @@ export default class MainScene extends Phaser.Scene {
 
     this.input.on("gameobjectdown", this.destroyShip, this);
 
+    this.physics.add.collider(this.projectiles, this.powerUps, function(projectile, powerUp){
+      projectile.destroy();
+    });
+
+    this.physics.add.overlap(this.player, this.powerUps, this.pickPowerUp);
+
+    
     
   }
 
@@ -129,5 +140,8 @@ export default class MainScene extends Phaser.Scene {
         this.shootBeam();
     }
     
+  }
+  pickPowerUp(player, powerUp) {
+    powerUp.disableBody(true, true) ;
   }
 }
