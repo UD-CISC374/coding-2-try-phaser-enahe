@@ -12,12 +12,12 @@ export default class MainScene extends Phaser.Scene {
   }
 
   create() {
-    this.background = this.add.tileSprite(0,0, 1024, 1024, "background");
+    this.background = this.add.tileSprite(0,0, 400, 400, "background");
     this.background.setOrigin(0,0);
 
-    this.player = this.add.sprite(1024/2 - 50, 1024/2, "player");
-    this.turret = this.add.sprite(1024/2, 1024/2, "turret");
-    this.drone = this.add.sprite(1024/2 + 50, 1024/2, "drone");
+    this.player = this.add.sprite(400/2 - 50, 400/2, "player");
+    this.turret = this.add.sprite(400/2, 400/2, "turret");
+    this.drone = this.add.sprite(400/2 + 50, 400/2, "drone");
 
     this.anims.create({
       key: "player_anim",
@@ -57,21 +57,21 @@ export default class MainScene extends Phaser.Scene {
 
   moveShip(ship,speed) {
     ship.y += speed; 
-    if (ship.y > 1024) {
+    if (ship.y > 400) {
       this.resetShipPos(ship);
     }
   }
 
   resetShipPos(ship) {
     ship.y = 0;
-    var randomX = Phaser.Math.Between(0, 1024);
+    var randomX = Phaser.Math.Between(0, 400);
     ship.x = randomX; 
   }
 
   update() {
-    // this.moveShip(this.player, 2);
-    // this.moveShip(this.turret, 3);
-    // this.moveShip(this.drone, 4);
-    // this.background.tilePositionY -= 0.5;
+    this.moveShip(this.player, 2);
+    this.moveShip(this.turret, 3);
+    this.moveShip(this.drone, 4);
+    this.background.tilePositionY -= 0.5;
   }
 }
